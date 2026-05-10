@@ -50,3 +50,15 @@ exports.login = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getMe = async (req, res, next) => {
+  try {
+    const result = await db.query(
+      'SELECT id, first_name, last_name, email, phone, city, country, profile_pic FROM users WHERE id = $1',
+      [req.user.id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+};
