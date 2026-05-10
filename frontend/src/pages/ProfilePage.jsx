@@ -42,12 +42,12 @@ export default function ProfilePage() {
         </button>
       </div>
 
-      <div style={{ background: '#fff', borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+      <div style={{ background: 'var(--surface)', borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
         <div style={{ height: 160, background: 'linear-gradient(to right, var(--primary), var(--secondary))' }} />
         
         <div style={{ padding: '0 40px 40px', position: 'relative' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div style={{ width: 120, height: 120, borderRadius: '50%', background: '#fff', border: '4px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, fontWeight: 700, color: 'var(--primary)', marginTop: -60, marginBottom: 24, boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ width: 120, height: 120, borderRadius: '50%', background: 'var(--surface)', border: '4px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, fontWeight: 700, color: 'var(--primary)', marginTop: -60, marginBottom: 24, boxShadow: 'var(--shadow-sm)' }}>
               {(formData.firstName[0] || '') + (formData.lastName[0] || '')}
             </div>
             
@@ -103,7 +103,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>Language Preference</label>
-                  <select name="language" value={formData.language} onChange={handleChange} style={{ width: '100%', padding: '12px', borderRadius: 'var(--r-md)', border: '1px solid var(--border)', fontSize: 15, background: '#fff' }}>
+                  <select name="language" value={formData.language} onChange={handleChange} style={{ width: '100%', padding: '12px', borderRadius: 'var(--r-md)', border: '1px solid var(--border)', fontSize: 15, background: 'var(--surface)' }}>
                     <option>English</option>
                     <option>Spanish</option>
                     <option>French</option>
@@ -144,7 +144,7 @@ export default function ProfilePage() {
              <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px dashed #DC2626' }}>
                <h3 style={{ fontSize: 16, fontWeight: 600, color: '#DC2626', marginBottom: 8 }}>Danger Zone</h3>
                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>Permanently delete your account and all of your travel data.</p>
-               <button style={{ padding: '10px 20px', background: '#fff', border: '1px solid #DC2626', borderRadius: 'var(--r-md)', color: '#DC2626', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>Delete Account</button>
+               <button style={{ padding: '10px 20px', background: 'var(--surface)', border: '1px solid #DC2626', borderRadius: 'var(--r-md)', color: '#DC2626', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>Delete Account</button>
              </div>
           )}
         </div>

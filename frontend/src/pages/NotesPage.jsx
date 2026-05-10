@@ -47,7 +47,7 @@ export default function NotesPage() {
       </header>
 
       {isAdding && (
-        <div style={{ background: '#fff', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24, marginBottom: 32, boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ background: 'var(--surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24, marginBottom: 32, boxShadow: 'var(--shadow-md)' }}>
           <input type="text" placeholder="Note Title" value={newTitle} onChange={e => setNewTitle(e.target.value)} style={{ width: '100%', border: 'none', borderBottom: '1px solid var(--border)', fontSize: 20, fontWeight: 600, paddingBottom: 12, marginBottom: 16, outline: 'none' }} />
           <textarea placeholder="Write your notes here..." value={newContent} onChange={e => setNewContent(e.target.value)} style={{ width: '100%', border: 'none', fontSize: 15, lineHeight: 1.6, minHeight: 150, outline: 'none', resize: 'vertical', marginBottom: 16 }} />
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
@@ -59,7 +59,7 @@ export default function NotesPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {notes.map(note => (
-          <div key={note.id} style={{ background: '#fff', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24 }}>
+          <div key={note.id} style={{ background: 'var(--surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)' }}>{note.title}</h3>
               <div style={{ display: 'flex', gap: 8 }}>

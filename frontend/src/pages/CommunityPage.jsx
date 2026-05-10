@@ -83,7 +83,7 @@ export default function CommunityPage() {
             variants={cardVariants}
             whileHover={{ y: -8, boxShadow: 'var(--shadow-lg)' }}
             style={{
-              background: '#fff', borderRadius: 'var(--r-3xl)',
+              background: 'var(--surface)', borderRadius: 'var(--r-3xl)',
               overflow: 'hidden', border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-sm)',
             }}

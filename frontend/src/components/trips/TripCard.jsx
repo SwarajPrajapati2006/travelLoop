@@ -23,7 +23,7 @@ export default function TripCard({ trip }) {
       whileHover={{ y: -6, boxShadow: '0 16px 40px rgba(0,0,0,0.10)' }}
       transition={{ duration: 0.22 }}
       style={{
-        background: '#fff',
+        background: 'var(--surface)',
         borderRadius: 'var(--r-3xl)',
         overflow: 'hidden',
         border: '1px solid var(--border)',

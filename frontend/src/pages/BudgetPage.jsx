@@ -197,7 +197,7 @@ export default function BudgetPage() {
       {/* ── Add Expense Form ───────────────────────────────────── */}
       {showForm && (
         <div style={{
-          background: '#fff', border: '1px solid var(--border)', borderRadius: 'var(--r-2xl)',
+          background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--r-2xl)',
           padding: 32, marginBottom: 32, boxShadow: 'var(--shadow-sm)',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
@@ -273,7 +273,7 @@ export default function BudgetPage() {
             </div>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
               <button type="button" onClick={() => setShowForm(false)}
-                style={{ padding: '10px 20px', borderRadius: 'var(--r-lg)', border: '1.5px solid var(--border)', background: '#fff', color: 'var(--text-main)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+                style={{ padding: '10px 20px', borderRadius: 'var(--r-lg)', border: '1.5px solid var(--border)', background: 'var(--surface)', color: 'var(--text-main)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
                 Cancel
               </button>
               <button type="submit" disabled={submitting}
@@ -292,7 +292,7 @@ export default function BudgetPage() {
           { label: 'Total Budget',  value: totalBudget > 0 ? `${currency}${totalBudget.toLocaleString()}` : 'Not set', icon: TrendingUp,  color: 'var(--secondary)' },
           { label: 'Avg. Per Day',  value: `${currency}${avgPerDay.toLocaleString()}`,  icon: CheckCircle, color: '#8B5CF6' },
         ].map(card => (
-          <div key={card.label} style={{ background: '#fff', padding: 28, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+          <div key={card.label} style={{ background: 'var(--surface)', padding: 28, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
               <span style={{ fontSize: 14, color: 'var(--text-secondary)', fontWeight: 500 }}>{card.label}</span>
               <div style={{ width: 40, height: 40, borderRadius: 'var(--r-lg)', background: card.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -306,7 +306,7 @@ export default function BudgetPage() {
 
       {/* ── Overall Progress Bar ───────────────────────────────── */}
       {totalBudget > 0 && (
-        <div style={{ background: '#fff', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', marginBottom: 32 }}>
+        <div style={{ background: 'var(--surface)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', marginBottom: 32 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
             <span style={{ fontWeight: 600, fontSize: 15, color: 'var(--text-main)' }}>Overall Budget Used</span>
             <span style={{ fontSize: 15, fontWeight: 700, color: overBudget ? '#DC2626' : 'var(--secondary)' }}>{pct}%</span>
@@ -338,7 +338,7 @@ export default function BudgetPage() {
       {pieData.length > 0 && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 24, marginBottom: 32 }}>
           {/* Pie */}
-          <div style={{ background: '#fff', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ background: 'var(--surface)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
             <h3 style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-main)', marginBottom: 24 }}>Spending by Category</h3>
             <ResponsiveContainer width="100%" height={240}>
               <PieChart>
@@ -352,7 +352,7 @@ export default function BudgetPage() {
           </div>
 
           {/* Bar */}
-          <div style={{ background: '#fff', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ background: 'var(--surface)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
             <h3 style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-main)', marginBottom: 24 }}>Spent by Category</h3>
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={barData} barSize={20}>
@@ -368,7 +368,7 @@ export default function BudgetPage() {
       )}
 
       {/* ── Expense Transactions Table ─────────────────────────── */}
-      <div style={{ background: '#fff', borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--surface)', borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
         <div style={{ padding: '24px 32px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h3 style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-main)' }}>
             All Expenses <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 400, marginLeft: 8 }}>{expenses.length} items</span>
