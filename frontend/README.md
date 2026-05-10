@@ -1,16 +1,65 @@
-# React + Vite
+# Voyage - Travel Planner Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend portion of the **Voyage** travel planning application, built with React and Vite.
 
-Currently, two official plugins are available:
+## 📁 Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```text
+src/
+├── api/              # Axios configuration and API service modules
+├── components/       # Reusable UI components
+│   ├── checklist/    # Checklist-specific components
+│   ├── common/       # Global components (Navbar, Loader, etc.)
+│   ├── itinerary/    # Itinerary-specific components
+│   └── trips/        # Trip management components
+├── context/          # React Context providers (Auth, etc.)
+├── pages/            # Main view components/routes
+├── styles/           # Global CSS and design variables
+├── App.jsx           # Main application routing
+└── main.jsx          # Entry point and provider setup
+```
 
-## React Compiler
+## 🚀 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Installation
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Development
+Start the development server:
+```bash
+npm run dev
+```
+
+### Build
+Create a production build:
+```bash
+npm run build
+```
+
+## 🛠️ Tech Stack
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Routing**: React Router DOM
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **Forms**: Formik + Yup
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+- **Utilities**: Axios, date-fns, react-hot-toast, jsPDF
+
+## 🔐 Environment Variables
+Create a `.env` file in the root of the `frontend` directory:
+```env
+VITE_API_URL=http://localhost:5000/api
+```
