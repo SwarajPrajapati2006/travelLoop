@@ -6,6 +6,16 @@
   <title>TravelLoop — Plan Your Next Adventure</title>
   <meta name="description" content="TravelLoop helps you plan, organize, and share incredible travel experiences. Build beautiful itineraries, track budgets, and explore destinations." />
 
+  <!-- THEME FLASH PREVENTION — runs synchronously before anything renders -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('tl_theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
