@@ -10,6 +10,7 @@ const checklistRoutes = require('./routes/checklist.routes');
 const noteRoutes = require('./routes/note.routes');
 const cityRoutes = require('./routes/city.routes');
 const adminRoutes = require('./routes/admin.routes');
+const userRoutes = require('./routes/user.routes');
 const errorMiddleware = require('./middleware/error.middleware');
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api/checklist', checklistRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/cities', cityRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 
 // Error Handler
 app.use(errorMiddleware);
