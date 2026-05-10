@@ -36,13 +36,13 @@ export default function ItineraryViewPage() {
             <div style={{ display: 'inline-block', background: 'var(--primary)', color: '#fff', padding: '4px 12px', borderRadius: 'var(--r-full)', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', marginBottom: 12 }}>
               {trip.status}
             </div>
-            <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontSize: 40, fontWeight: 700, marginBottom: 8 }}>{trip.name}</h1>
+            <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontSize: 40, fontWeight: 700, marginBottom: 8, color: '#fff' }}>{trip.name}</h1>
             <div style={{ display: 'flex', gap: 24, fontSize: 15, opacity: 0.9 }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><MapPin size={16} /> {trip.destination}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Calendar size={16} /> {new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}</span>
             </div>
           </div>
-          <Link to={`/trips/${trip.id}/build`} style={{ background: '#fff', color: 'var(--text-main)', padding: '12px 24px', borderRadius: 'var(--r-full)', fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Link to={`/trips/${trip.id}/build`} style={{ background: 'var(--surface)', color: 'var(--text-main)', padding: '12px 24px', borderRadius: 'var(--r-full)', fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
             <Navigation size={16} /> Edit Itinerary
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function ItineraryViewPage() {
                         <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--surface)', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, backgroundColor: '#fff' }}>
                           {act.icon}
                         </div>
-                        <div style={{ flex: 1, background: '#fff', padding: 20, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+                        <div style={{ flex: 1, background: 'var(--surface)', padding: 20, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                             <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)' }}>{act.time} • {act.duration}</div>
                             <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{trip.currency}{act.cost}</div>
@@ -112,7 +112,7 @@ export default function ItineraryViewPage() {
 
         <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 24 }}>
           {trip.weather && (
-            <div style={{ background: '#fff', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
+            <div style={{ background: 'var(--surface)', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
               <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-main)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Sun size={18} /> Expected Weather
               </h3>
@@ -127,7 +127,7 @@ export default function ItineraryViewPage() {
             </div>
           )}
 
-          <div style={{ background: '#fff', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
+          <div style={{ background: 'var(--surface)', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-main)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
               <DollarSign size={18} /> Budget Overview
             </h3>
@@ -141,7 +141,7 @@ export default function ItineraryViewPage() {
             <Link to={`/trips/${trip.id}/budget`} style={{ fontSize: 14, color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>View detailed breakdown &rarr;</Link>
           </div>
 
-          <div style={{ background: '#fff', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
+          <div style={{ background: 'var(--surface)', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-main)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
               <Users size={18} /> Trip Tools
             </h3>

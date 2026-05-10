@@ -25,7 +25,7 @@ const inputStyle = (hasErr = false) => ({
 
 const labelStyle = {
   display: 'block', fontSize: 13, fontWeight: 600,
-  color: 'var(--text-secondary)', marginBottom: 8,
+  color: 'var(--text-main)', marginBottom: 8,
   fontFamily: 'var(--font-sans)', letterSpacing: 0.3,
   textTransform: 'uppercase',
 };
@@ -116,14 +116,18 @@ export default function CreateTripPage() {
               </div>
               {formik.touched.destination && formik.errors.destination && <div style={{ color: 'var(--error)', fontSize: 12, marginTop: 5, fontFamily: 'var(--font-sans)' }}>{formik.errors.destination}</div>}
               {showCityResults && cityResults.length > 0 && (
-                <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', border: '1.5px solid var(--border)', borderRadius: 'var(--r-lg)', marginTop: 6, zIndex: 10, boxShadow: 'var(--shadow-lg)', maxHeight: 200, overflowY: 'auto' }}>
+                <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--surface)', border: '1.5px solid var(--border)', borderRadius: 'var(--r-lg)', marginTop: 6, zIndex: 10, boxShadow: 'var(--shadow-lg)', maxHeight: 200, overflowY: 'auto' }}>
                   {cityResults.map(c => (
-                    <div key={c} onClick={() => { setCityQuery(c); formik.setFieldValue('destination', c); setShowCityResults(false); }}
+                    <div key={c.id || c} onClick={() => {
+                      const locationName = c.name ? `${c.name}, ${c.country}` : c;
+                      setCityQuery(locationName); formik.setFieldValue('destination', locationName); setShowCityResults(false);
+                    }}
                       style={{ padding: '11px 16px', cursor: 'pointer', fontSize: 14, fontFamily: 'var(--font-sans)', borderBottom: '1px solid var(--border)', color: 'var(--text-main)', transition: 'background 0.1s' }}
                       onMouseEnter={e => e.target.style.background = 'var(--surface)'}
                       onMouseLeave={e => e.target.style.background = '#fff'}
                     >
-                      <MapPin size={13} style={{ marginRight: 8, color: 'var(--primary)', verticalAlign: 'middle' }} />{c}
+                      <MapPin size={13} style={{ marginRight: 8, color: 'var(--primary)', verticalAlign: 'middle' }} />
+                      {c.name ? `${c.name}, ${c.country}` : c}
                     </div>
                   ))}
                 </div>
@@ -214,21 +218,27 @@ export default function CreateTripPage() {
       </div>
 
       {/* ── Right: Amalfi panel (hidden on small screens) ── */}
-      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 'calc(100vh - var(--nav-h))' }}>
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 'calc(100vh - var(--nav-h))', display: 'flex' }}>
+        {/* Wavy transition from the left side */}
+        <div style={{ position: 'absolute', top: 0, left: -2, width: '60px', height: '100%', zIndex: 10 }}>
+          <svg viewBox="0 0 100 1000" preserveAspectRatio="none" style={{ width: '100%', height: '100%', display: 'block' }}>
+            <path fill="#fff" d="M0,0 L50,0 C100,250 0,250 50,500 C100,750 0,750 50,1000 L0,1000 Z" />
+          </svg>
+        </div>
         <img
           src={PANEL_IMG} alt="Amalfi Coast"
           onError={handleImgError}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.05) 65%)' }} />
-        <div style={{ position: 'absolute', bottom: 60, left: 52, right: 52, color: '#fff' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%)' }} />
+        <div style={{ position: 'absolute', bottom: 100, left: 80, right: 52, color: '#fff', zIndex: 11, textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
             Every journey starts here
           </p>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 38, fontWeight: 400, lineHeight: 1.18, marginBottom: 16 }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 44, fontWeight: 400, lineHeight: 1.1, marginBottom: 16, color: '#fff' }}>
             Craft your perfect adventure.
           </h2>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, opacity: 0.85, lineHeight: 1.7, maxWidth: 380 }}>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, opacity: 0.95, lineHeight: 1.7, maxWidth: 380 }}>
             From budget tracking to day-by-day itineraries — TravelLoop keeps your plans beautifully organized.
           </p>
         </div>

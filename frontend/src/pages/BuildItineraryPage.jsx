@@ -46,7 +46,7 @@ export default function BuildItineraryPage() {
     padding: '10px 14px', borderRadius: 'var(--r-md)',
     border: '1.5px solid var(--border)', outline: 'none',
     fontSize: 14, fontFamily: 'var(--font-sans)',
-    background: '#fff', color: 'var(--text-main)',
+    background: 'var(--surface)', color: 'var(--text-main)',
     width: '100%', transition: 'border-color 0.2s',
   };
 
@@ -83,7 +83,7 @@ export default function BuildItineraryPage() {
       {/* Timeline with gradient connector */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
         {days.map((day, dIdx) => (
-          <div key={day.id} style={{ display: 'flex', gap: 24 }}>
+          <div key={day.id || `day-${dIdx}`} style={{ display: 'flex', gap: 24 }}>
             {/* Timeline rail */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 40, flexShrink: 0 }}>
               {/* Dot */}
@@ -109,7 +109,7 @@ export default function BuildItineraryPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: dIdx * 0.06, duration: 0.4 }}
               style={{
-                flex: 1, background: '#fff', borderRadius: 'var(--r-xl)',
+                flex: 1, background: 'var(--surface)', borderRadius: 'var(--r-xl)',
                 border: '1px solid var(--border)', padding: '28px 32px',
                 boxShadow: 'var(--shadow-sm)', marginBottom: 24,
               }}
@@ -120,7 +120,7 @@ export default function BuildItineraryPage() {
                   <label style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8, fontFamily: 'var(--font-sans)' }}>
                     Day {dIdx + 1} — Title
                   </label>
-                  <input type="text" value={day.title}
+                  <input type="text" value={day.title || ''}
                     onChange={e => { const nd = [...days]; nd[dIdx].title = e.target.value; setDays(nd); }}
                     onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                     onBlur={e => e.target.style.borderColor = 'var(--border)'}
@@ -128,7 +128,7 @@ export default function BuildItineraryPage() {
                 </div>
                 <div style={{ width: 200 }}>
                   <label style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8, fontFamily: 'var(--font-sans)' }}>Date</label>
-                  <input type="date" value={day.date}
+                  <input type="date" value={day.date || ''}
                     onChange={e => { const nd = [...days]; nd[dIdx].date = e.target.value; setDays(nd); }}
                     onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                     onBlur={e => e.target.style.borderColor = 'var(--border)'}
@@ -141,9 +141,9 @@ export default function BuildItineraryPage() {
                 <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 1.5 }}>
                   Activities
                 </h4>
-                {day.activities.map((act, aIdx) => (
+                {(day.activities || []).map((act, aIdx) => (
                   <motion.div
-                    key={act.id}
+                    key={act.id || `act-${dIdx}-${aIdx}`}
                     whileHover={{ scale: 1.015, boxShadow: 'var(--shadow-xl)' }}
                     transition={{ duration: 0.18 }}
                     style={{
@@ -157,26 +157,26 @@ export default function BuildItineraryPage() {
                         onChange={e => { const nd = [...days]; nd[dIdx].activities[aIdx].time = e.target.value; setDays(nd); }}
                         onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                         onBlur={e => e.target.style.borderColor = 'var(--border)'}
-                        style={{ ...inputBase, background: '#fff', fontSize: 13 }} />
+                        style={{ ...inputBase, background: 'var(--surface)', fontSize: 13 }} />
                     </div>
                     <div style={{ flex: 1 }}>
                       <input type="text" placeholder="Activity title" value={act.title}
                         onChange={e => { const nd = [...days]; nd[dIdx].activities[aIdx].title = e.target.value; setDays(nd); }}
                         onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                         onBlur={e => e.target.style.borderColor = 'var(--border)'}
-                        style={{ ...inputBase, background: '#fff', fontSize: 13, marginBottom: 8 }} />
+                        style={{ ...inputBase, background: 'var(--surface)', fontSize: 13, marginBottom: 8 }} />
                       <input type="text" placeholder="Description (optional)" value={act.description}
                         onChange={e => { const nd = [...days]; nd[dIdx].activities[aIdx].description = e.target.value; setDays(nd); }}
                         onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                         onBlur={e => e.target.style.borderColor = 'var(--border)'}
-                        style={{ ...inputBase, background: '#fff', fontSize: 13 }} />
+                        style={{ ...inputBase, background: 'var(--surface)', fontSize: 13 }} />
                     </div>
                     <div style={{ width: 84 }}>
                       <input type="number" placeholder="Cost" value={act.cost}
                         onChange={e => { const nd = [...days]; nd[dIdx].activities[aIdx].cost = Number(e.target.value); setDays(nd); }}
                         onFocus={e => e.target.style.borderColor = 'var(--primary)'}
                         onBlur={e => e.target.style.borderColor = 'var(--border)'}
-                        style={{ ...inputBase, background: '#fff', fontSize: 13 }} />
+                        style={{ ...inputBase, background: 'var(--surface)', fontSize: 13 }} />
                     </div>
                     <button onClick={() => { const nd = [...days]; nd[dIdx].activities.splice(aIdx, 1); setDays(nd); }}
                       style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600, paddingTop: 10 }}>
