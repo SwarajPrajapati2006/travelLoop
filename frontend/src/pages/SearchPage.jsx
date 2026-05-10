@@ -114,7 +114,7 @@ export default function SearchPage() {
                     transition={{ delay: i * 0.07, duration: 0.4 }}
                     whileHover={{ y: -6, boxShadow: 'var(--shadow-lg)' }}
                     style={{
-                      background: '#fff', borderRadius: 'var(--r-3xl)',
+                      background: 'var(--surface)', borderRadius: 'var(--r-3xl)',
                       overflow: 'hidden', border: '1px solid var(--border)',
                       boxShadow: 'var(--shadow-sm)',
                     }}
