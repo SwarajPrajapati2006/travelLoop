@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -9,10 +10,10 @@ export default function Navbar() {
   return (
     <nav style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: 'rgba(255, 255, 255, 0.80)',
+      background: 'var(--surface)',
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
-      borderBottom: '1px solid rgba(235, 235, 235, 0.7)',
+      borderBottom: '1px solid var(--border)',
       height: 'var(--nav-h)',
     }}>
       <div style={{
@@ -63,6 +64,7 @@ export default function Navbar() {
 
         {/* Right actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <ThemeToggle />
           <button
             onClick={() => navigate('/trips/new')}
             style={{

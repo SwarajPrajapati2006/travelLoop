@@ -57,7 +57,7 @@ export default function RegisterPage() {
   });
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', background: '#fafafa' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', background: 'var(--bg)' }}>
       {/* ── Left: form panel ── */}
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 48px' }}>
         <motion.div
@@ -180,10 +180,10 @@ export default function RegisterPage() {
         />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 60%)' }} />
         <div style={{ position: 'absolute', bottom: 60, left: 56, right: 56, color: '#fff' }}>
-          <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--secondary)', marginBottom: 16, fontFamily: 'var(--font-sans)' }}>
+          <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: '#fff', marginBottom: 16, fontFamily: 'var(--font-sans)', opacity: 0.9 }}>
             TravelLoop
           </p>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 42, fontWeight: 400, lineHeight: 1.15, marginBottom: 18 }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 42, fontWeight: 400, lineHeight: 1.15, marginBottom: 18, color: '#fff' }}>
             Your journey begins here.
           </h2>
           <p style={{ fontSize: 16, opacity: 0.85, lineHeight: 1.7, fontFamily: 'var(--font-sans)', maxWidth: 420 }}>

@@ -46,7 +46,7 @@ export default function NotesPage() {
         </button>
       </header>
       {isAdding && (
-        <div style={{ background: '#fff', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24, marginBottom: 32, boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ background: 'var(--surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24, marginBottom: 32, boxShadow: 'var(--shadow-md)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
             <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-main)' }}>Day</span>
             <input type="number" min="1" value={newDayNumber} onChange={e => setNewDayNumber(e.target.value)} style={{ width: 60, padding: '6px 12px', border: '1px solid var(--border)', borderRadius: 'var(--r-md)', fontSize: 15, outline: 'none' }} />
@@ -61,7 +61,7 @@ export default function NotesPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {notes.map(note => (
-          <div key={note.id} style={{ background: '#fff', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24 }}>
+          <div key={note.id} style={{ background: 'var(--surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border)', padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)' }}>Day {note.day_number}</h3>
               <div style={{ display: 'flex', gap: 8 }}>
