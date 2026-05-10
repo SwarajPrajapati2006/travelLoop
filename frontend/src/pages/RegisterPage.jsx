@@ -29,12 +29,19 @@ export default function RegisterPage() {
     onSubmit: async (values, { setSubmitting }) => {
       setApiError('');
       try {
-        const { user, token } = await register(values);
+        const data = await register({
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          password: values.password,
+        });
+        // Backend returns: { id, email, first_name, token }
+        const { token, ...user } = data;
         loginCtx(user, token);
         toast.success('Account created successfully!');
         navigate('/dashboard');
       } catch (err) {
-        setApiError(err.message || 'Registration failed');
+        setApiError(err?.response?.data?.message || err.message || 'Registration failed');
       } finally {
         setSubmitting(false);
       }

@@ -7,7 +7,10 @@ exports.getAllTrips = async (req, res, next) => {
   try {
     let query = `
       SELECT t.*, 
-        COALESCE(s.total_budget, 0) as total_budget, 
+        t.place as destination,
+        t.start_date as "startDate",
+        t.end_date as "endDate",
+        COALESCE(s.total_budget, t.budget, 0) as total_budget, 
         COALESCE(e.total_spent, 0) as total_spent 
       FROM trips t
       LEFT JOIN (
@@ -41,18 +44,48 @@ exports.getAllTrips = async (req, res, next) => {
 };
 
 exports.createTrip = async (req, res, next) => {
-  const { name, place, start_date, end_date, status, cover_photo, is_public } = req.body;
-  
+  // Accept both frontend (camelCase/destination) and backend (snake_case/place) field names
+  const {
+    name,
+    place, destination,
+    start_date, startDate,
+    end_date, endDate,
+    status,
+    cover_photo, coverImage,
+    is_public,
+    budget,
+    travelers,
+    currency,
+    description,
+  } = req.body;
+
+  const resolvedPlace = place || destination;
+  const resolvedStartDate = start_date || startDate;
+  const resolvedEndDate = end_date || endDate;
+  const resolvedCoverPhoto = cover_photo || coverImage;
+
   if (status && !VALID_STATUSES.includes(status)) {
     return res.status(400).json({ message: 'Invalid status value' });
   }
 
   try {
     const result = await db.query(
-      'INSERT INTO trips (user_id, name, place, start_date, end_date, status, cover_photo, is_public) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-      [req.user.id, name, place, start_date, end_date, status || 'upcoming', cover_photo, is_public || false]
+      `INSERT INTO trips 
+        (user_id, name, place, start_date, end_date, status, cover_photo, is_public, budget, travelers, currency, description) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+      [
+        req.user.id, name, resolvedPlace, resolvedStartDate, resolvedEndDate,
+        status || 'upcoming', resolvedCoverPhoto, is_public || false,
+        budget || null, travelers || null, currency || '$', description || null
+      ]
     );
-    res.status(201).json(result.rows[0]);
+    const row = result.rows[0];
+    res.status(201).json({
+      ...row,
+      destination: row.place,
+      startDate: row.start_date,
+      endDate: row.end_date,
+    });
   } catch (err) {
     next(err);
   }
@@ -62,7 +95,10 @@ exports.getTripById = async (req, res, next) => {
   try {
     const result = await db.query(`
       SELECT t.*, 
-        COALESCE(s.total_budget, 0) as total_budget, 
+        t.place as destination,
+        t.start_date as "startDate",
+        t.end_date as "endDate",
+        COALESCE(s.total_budget, t.budget, 0) as total_budget, 
         COALESCE(e.total_spent, 0) as total_spent 
       FROM trips t
       LEFT JOIN (
@@ -83,7 +119,6 @@ exports.getTripById = async (req, res, next) => {
       return res.status(404).json({ message: 'Trip not found' });
     }
 
-    // Auth logic: allow if trip is public OR if logged in user is owner
     if (!trip.is_public) {
       if (!req.user || trip.user_id !== req.user.id) {
         return res.status(403).json({ message: 'Access denied' });
@@ -97,21 +132,57 @@ exports.getTripById = async (req, res, next) => {
 };
 
 exports.updateTrip = async (req, res, next) => {
-  const { name, place, start_date, end_date, status, cover_photo, is_public } = req.body;
-  
+  const {
+    name,
+    place, destination,
+    start_date, startDate,
+    end_date, endDate,
+    status,
+    cover_photo, coverImage,
+    is_public,
+    budget,
+    travelers,
+    currency,
+    description,
+  } = req.body;
+
+  const resolvedPlace = place || destination;
+  const resolvedStartDate = start_date || startDate;
+  const resolvedEndDate = end_date || endDate;
+  const resolvedCoverPhoto = cover_photo || coverImage;
+
   if (status && !VALID_STATUSES.includes(status)) {
     return res.status(400).json({ message: 'Invalid status value' });
   }
 
   try {
     const result = await db.query(
-      'UPDATE trips SET name = COALESCE($1, name), place = COALESCE($2, place), start_date = COALESCE($3, start_date), end_date = COALESCE($4, end_date), status = COALESCE($5, status), cover_photo = COALESCE($6, cover_photo), is_public = COALESCE($7, is_public) WHERE id = $8 AND user_id = $9 RETURNING *',
-      [name, place, start_date, end_date, status, cover_photo, is_public, req.params.id, req.user.id]
+      `UPDATE trips SET 
+        name = COALESCE($1, name), 
+        place = COALESCE($2, place), 
+        start_date = COALESCE($3, start_date), 
+        end_date = COALESCE($4, end_date), 
+        status = COALESCE($5, status), 
+        cover_photo = COALESCE($6, cover_photo), 
+        is_public = COALESCE($7, is_public),
+        budget = COALESCE($8, budget),
+        travelers = COALESCE($9, travelers),
+        currency = COALESCE($10, currency),
+        description = COALESCE($11, description)
+       WHERE id = $12 AND user_id = $13 RETURNING *`,
+      [name, resolvedPlace, resolvedStartDate, resolvedEndDate, status, resolvedCoverPhoto, is_public,
+       budget, travelers, currency, description, req.params.id, req.user.id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ message: 'Trip not found' });
     }
-    res.json(result.rows[0]);
+    const row = result.rows[0];
+    res.json({
+      ...row,
+      destination: row.place,
+      startDate: row.start_date,
+      endDate: row.end_date,
+    });
   } catch (err) {
     next(err);
   }
@@ -132,7 +203,9 @@ exports.deleteTrip = async (req, res, next) => {
 exports.getPublicTrips = async (req, res, next) => {
   try {
     const result = await db.query(
-      'SELECT t.*, u.first_name, u.last_name FROM trips t JOIN users u ON t.user_id = u.id WHERE t.is_public = true ORDER BY t.created_at DESC'
+      `SELECT t.*, t.place as destination, u.first_name, u.last_name 
+       FROM trips t JOIN users u ON t.user_id = u.id 
+       WHERE t.is_public = true ORDER BY t.created_at DESC`
     );
     res.json(result.rows);
   } catch (err) {

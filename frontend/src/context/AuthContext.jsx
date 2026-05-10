@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+console.log('AuthContext loaded');
 
 const AuthContext = createContext(null);
 
@@ -8,9 +9,18 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const t = localStorage.getItem('tl_token');
-    const u = localStorage.getItem('tl_user');
-    if (t && u) { setToken(t); setUser(JSON.parse(u)); }
+    try {
+      const t = localStorage.getItem('tl_token');
+      const u = localStorage.getItem('tl_user');
+      if (t && u && u !== 'undefined') { 
+        setToken(t); 
+        setUser(JSON.parse(u)); 
+      }
+    } catch (e) {
+      console.error("Failed to parse user from local storage", e);
+      localStorage.removeItem('tl_user');
+      localStorage.removeItem('tl_token');
+    }
     setLoading(false);
   }, []);
 

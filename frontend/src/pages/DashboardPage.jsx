@@ -153,8 +153,8 @@ export default function DashboardPage() {
                     <MapPin size={12} style={{ color: 'var(--primary)' }} />
                     {dest.popularity >= 4 && <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: 1 }}>Trending</span>}
                   </div>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: isLarge ? 26 : 19, fontWeight: 400, marginBottom: 2 }}>{dest.name}</h3>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, opacity: 0.85 }}>{dest.country}</p>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: isLarge ? 26 : 19, fontWeight: 400, marginBottom: 2, color: '#fff' }}>{dest.name}</h3>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, opacity: 0.85, color: '#fff' }}>{dest.country}</p>
                 </div>
               </motion.div>
             )})}

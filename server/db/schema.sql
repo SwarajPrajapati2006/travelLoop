@@ -27,6 +27,10 @@ CREATE TABLE trips (
     status VARCHAR(20) DEFAULT 'upcoming',
     is_public BOOLEAN DEFAULT false,
     cover_photo TEXT,
+    budget NUMERIC(12,2),
+    travelers INTEGER DEFAULT 1,
+    currency VARCHAR(10) DEFAULT '$',
+    description TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

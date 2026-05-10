@@ -4,8 +4,12 @@ import { motion } from 'framer-motion';
 import { getDestinationImage, handleImgError } from '../../utils/images';
 
 export default function TripCard({ trip }) {
-  // Derive destination-specific image by fuzzy-matching the destination name
-  const imgSrc = trip.coverImage || getDestinationImage(trip.destination || trip.name, 600);
+  const destination = trip.destination || trip.place || '';
+  const imgSrc = trip.coverImage || trip.cover_photo || getDestinationImage(destination || trip.name, 600);
+  const startDate = trip.startDate || trip.start_date;
+  const endDate = trip.endDate || trip.end_date;
+  const budget = trip.budget || trip.total_budget || 0;
+  const currency = trip.currency || '$';
 
   const statusColors = {
     upcoming:  { bg: 'rgba(0, 166, 153, 0.15)', text: '#00A699' },
@@ -48,10 +52,12 @@ export default function TripCard({ trip }) {
           {trip.status}
         </div>
         {/* Destination overlay */}
-        <div style={{ position: 'absolute', bottom: 14, left: 16, display: 'flex', alignItems: 'center', gap: 5, color: '#fff' }}>
-          <MapPin size={13} style={{ color: 'var(--primary)' }} />
-          <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 500 }}>{trip.destination}</span>
-        </div>
+        {destination && (
+          <div style={{ position: 'absolute', bottom: 14, left: 16, display: 'flex', alignItems: 'center', gap: 5 }}>
+            <MapPin size={13} style={{ color: 'var(--primary)' }} />
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 500, color: '#fff' }}>{destination}</span>
+          </div>
+        )}
       </div>
 
       {/* Body */}
@@ -61,19 +67,26 @@ export default function TripCard({ trip }) {
         </h3>
 
         <div style={{ display: 'flex', gap: 20, marginBottom: 22 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: 13 }}>
-            <Calendar size={13} />
-            <span>{new Date(trip.startDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} — {new Date(trip.endDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: 13 }}>
-            <Users size={13} />
-            <span>{trip.travelers} {trip.travelers === 1 ? 'Traveler' : 'Travelers'}</span>
-          </div>
+          {startDate && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: 13 }}>
+              <Calendar size={13} />
+              <span>
+                {new Date(startDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                {endDate && ` — ${new Date(endDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`}
+              </span>
+            </div>
+          )}
+          {trip.travelers && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: 13 }}>
+              <Users size={13} />
+              <span>{trip.travelers} {trip.travelers === 1 ? 'Traveler' : 'Travelers'}</span>
+            </div>
+          )}
         </div>
 
         <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 700, color: 'var(--text-main)' }}>
-            {trip.currency}{trip.budget?.toLocaleString()}
+            {budget ? `${currency}${Number(budget).toLocaleString()}` : '—'}
           </div>
           <Link
             to={`/trips/${trip.id}`}
@@ -81,7 +94,6 @@ export default function TripCard({ trip }) {
               display: 'flex', alignItems: 'center', gap: 4,
               fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
               color: 'var(--primary)', textDecoration: 'none',
-              transition: 'gap 0.2s',
             }}
           >
             View Trip <ArrowRight size={14} />

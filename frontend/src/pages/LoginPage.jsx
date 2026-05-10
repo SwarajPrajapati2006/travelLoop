@@ -19,7 +19,7 @@ export default function LoginPage() {
   const { login: loginCtx } = useAuth();
 
   const formik = useFormik({
-    initialValues: { email: 'elena@example.com', password: 'password123' },
+    initialValues: { email: '', password: '' },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
       password: Yup.string().required('Required'),
@@ -27,12 +27,14 @@ export default function LoginPage() {
     onSubmit: async (values, { setSubmitting }) => {
       setApiError('');
       try {
-        const { user, token } = await login(values);
+        const data = await login(values);
+        // Backend returns: { id, email, first_name, is_admin, token }
+        const { token, ...user } = data;
         loginCtx(user, token);
         toast.success('Welcome back!');
         navigate('/dashboard');
       } catch (err) {
-        setApiError(err.message || 'Login failed');
+        setApiError(err?.response?.data?.message || err.message || 'Login failed');
       } finally {
         setSubmitting(false);
       }

@@ -96,7 +96,6 @@ export default function CreateTripPage() {
                 type="text" name="name" placeholder="e.g., Summer in Italy"
                 onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name}
                 onFocus={e => e.target.style.borderColor = 'var(--primary)'}
-                onBlur2={e => e.target.style.borderColor = 'var(--border)'}
                 style={inputStyle(formik.touched.name && formik.errors.name)}
               />
               {formik.touched.name && formik.errors.name && <div style={{ color: 'var(--error)', fontSize: 12, marginTop: 5, fontFamily: 'var(--font-sans)' }}>{formik.errors.name}</div>}
