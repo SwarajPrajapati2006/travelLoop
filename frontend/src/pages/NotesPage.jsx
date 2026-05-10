@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Plus, ArrowLeft, Calendar, Edit3, Trash2 } from 'lucide-react';
 import { getNotes, createNote, deleteNote } from '../api/notes.api';
 import Loader from '../components/common/Loader';
@@ -7,7 +7,7 @@ import Loader from '../components/common/Loader';
 export default function NotesPage() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const tripId = 'trip-1'; // Hardcoded for demo
+  const { id: tripId } = useParams();
   const [isAdding, setIsAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');

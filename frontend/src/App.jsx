@@ -50,10 +50,10 @@ export default function App() {
             <Route path="/trips/:id" element={<ProtectedRoute><ItineraryViewPage /></ProtectedRoute>} />
             <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-            <Route path="/checklist" element={<ProtectedRoute><ChecklistPage /></ProtectedRoute>} />
-            <Route path="/notes" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
+            <Route path="/trips/:id/checklist" element={<ProtectedRoute><ChecklistPage /></ProtectedRoute>} />
+            <Route path="/trips/:id/notes" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
+            <Route path="/trips/:id/budget" element={<ProtectedRoute><BudgetPage /></ProtectedRoute>} />
             <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
-            <Route path="/budget" element={<ProtectedRoute><BudgetPage /></ProtectedRoute>} />
             <Route path="/share/:id" element={<SharedItineraryPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

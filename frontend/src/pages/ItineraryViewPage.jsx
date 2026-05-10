@@ -138,7 +138,7 @@ export default function ItineraryViewPage() {
             <div style={{ height: 8, background: 'var(--surface-high)', borderRadius: 4, overflow: 'hidden', marginBottom: 24 }}>
               <div style={{ height: '100%', width: `${Math.min(100, ((trip.budget_breakdown?.total || 0) / (trip.budget_breakdown?.limit || trip.budget || 1)) * 100)}%`, background: 'var(--primary)', borderRadius: 4 }} />
             </div>
-            <Link to="/budget" style={{ fontSize: 14, color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>View detailed breakdown &rarr;</Link>
+            <Link to={`/trips/${trip.id}/budget`} style={{ fontSize: 14, color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>View detailed breakdown &rarr;</Link>
           </div>
 
           <div style={{ background: '#fff', padding: 24, borderRadius: 'var(--r-lg)', border: '1px solid var(--border)' }}>
@@ -146,10 +146,10 @@ export default function ItineraryViewPage() {
               <Users size={18} /> Trip Tools
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <Link to="/checklist" style={{ padding: '12px 16px', background: 'var(--surface)', borderRadius: 'var(--r-md)', textDecoration: 'none', color: 'var(--text-main)', fontWeight: 500, fontSize: 14, display: 'flex', justifyContent: 'space-between' }}>
+              <Link to={`/trips/${trip.id}/checklist`} style={{ padding: '12px 16px', background: 'var(--surface)', borderRadius: 'var(--r-md)', textDecoration: 'none', color: 'var(--text-main)', fontWeight: 500, fontSize: 14, display: 'flex', justifyContent: 'space-between' }}>
                 Packing Checklist <ArrowLeft size={16} style={{ transform: 'rotate(180deg)', color: 'var(--text-muted)' }} />
               </Link>
-              <Link to="/notes" style={{ padding: '12px 16px', background: 'var(--surface)', borderRadius: 'var(--r-md)', textDecoration: 'none', color: 'var(--text-main)', fontWeight: 500, fontSize: 14, display: 'flex', justifyContent: 'space-between' }}>
+              <Link to={`/trips/${trip.id}/notes`} style={{ padding: '12px 16px', background: 'var(--surface)', borderRadius: 'var(--r-md)', textDecoration: 'none', color: 'var(--text-main)', fontWeight: 500, fontSize: 14, display: 'flex', justifyContent: 'space-between' }}>
                 Travel Notes <ArrowLeft size={16} style={{ transform: 'rotate(180deg)', color: 'var(--text-muted)' }} />
               </Link>
             </div>

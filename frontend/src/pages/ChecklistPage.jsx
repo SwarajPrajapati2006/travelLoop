@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Plus, Check, Search, ArrowLeft } from 'lucide-react';
 import { getChecklist, toggleChecklistItem, addChecklistItem } from '../api/checklist.api';
 import Loader from '../components/common/Loader';
@@ -8,7 +8,7 @@ export default function ChecklistPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newItem, setNewItem] = useState('');
-  const tripId = 'trip-1'; // Hardcoded for demo
+  const { id: tripId } = useParams();
 
   useEffect(() => {
     getChecklist(tripId).then(res => { setItems(res); setLoading(false); });
