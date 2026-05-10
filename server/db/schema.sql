@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS activities, cities, trip_notes, checklist_items, expenses, trip_sections, trips, users CASCADE;
+
 -- Users Table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -9,6 +11,7 @@ CREATE TABLE users (
     city VARCHAR(100),
     country VARCHAR(100),
     profile_pic TEXT,
+    is_admin BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -42,8 +45,8 @@ CREATE TABLE trip_sections (
 -- Expenses Table
 CREATE TABLE expenses (
     id SERIAL PRIMARY KEY,
-    trip_id INTEGER REFERENCES trips(id),
-    section_id INTEGER REFERENCES trip_sections(id),
+    trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE,
+    section_id INTEGER REFERENCES trip_sections(id) ON DELETE SET NULL,
     category VARCHAR(100),
     description TEXT,
     qty NUMERIC,
@@ -56,7 +59,7 @@ CREATE TABLE expenses (
 -- Checklist Items Table
 CREATE TABLE checklist_items (
     id SERIAL PRIMARY KEY,
-    trip_id INTEGER REFERENCES trips(id),
+    trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE,
     category VARCHAR(50),
     item_name VARCHAR(255),
     is_checked BOOLEAN DEFAULT false,
@@ -66,7 +69,7 @@ CREATE TABLE checklist_items (
 -- Trip Notes Table
 CREATE TABLE trip_notes (
     id SERIAL PRIMARY KEY,
-    trip_id INTEGER REFERENCES trips(id),
+    trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE,
     day_number INTEGER,
     content TEXT,
     created_at TIMESTAMP DEFAULT NOW()
@@ -86,7 +89,7 @@ CREATE TABLE cities (
 -- Activities Table
 CREATE TABLE activities (
     id SERIAL PRIMARY KEY,
-    city_id INTEGER REFERENCES cities(id),
+    city_id INTEGER REFERENCES cities(id) ON DELETE CASCADE,
     name VARCHAR(255),
     type VARCHAR(100),
     cost NUMERIC(10,2),
@@ -94,3 +97,11 @@ CREATE TABLE activities (
     description TEXT,
     image_url TEXT
 );
+
+-- Indexes for performance
+CREATE INDEX idx_trips_user_id ON trips(user_id);
+CREATE INDEX idx_trip_sections_trip_id ON trip_sections(trip_id);
+CREATE INDEX idx_expenses_trip_id ON expenses(trip_id);
+CREATE INDEX idx_checklist_items_trip_id ON checklist_items(trip_id);
+CREATE INDEX idx_trip_notes_trip_id ON trip_notes(trip_id);
+CREATE INDEX idx_activities_city_id ON activities(city_id);
