@@ -85,7 +85,7 @@ export default function SharedItineraryPage() {
   const currentDay = groupedDays[activeDayIdx];
 
   return (
-    <div style={{ background: '#fafafa', minHeight: '100vh', paddingBottom: 48 }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', paddingBottom: 48 }}>
       {/* Banner */}
       <div style={{ height: 400, position: 'relative' }}>
         <img src={trip.cover_photo || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80'} alt={trip.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -130,7 +130,7 @@ export default function SharedItineraryPage() {
           </div>
           
           {groupedDays.length === 0 ? (
-            <div style={{ background: '#fff', padding: 48, borderRadius: 'var(--r-xl)', textAlign: 'center', border: '1px solid var(--border)' }}>
+            <div style={{ background: 'var(--surface)', padding: 48, borderRadius: 'var(--r-xl)', textAlign: 'center', border: '1px solid var(--border)' }}>
               <p style={{ color: 'var(--text-secondary)' }}>This trip has no activities planned yet.</p>
             </div>
           ) : (
@@ -166,10 +166,10 @@ export default function SharedItineraryPage() {
                     
                     {currentDay.sections.map((sec) => (
                       <div key={sec.id} style={{ display: 'flex', gap: 24, position: 'relative', zIndex: 1 }}>
-                        <div style={{ width: 50, height: 50, borderRadius: '50%', background: '#fff', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
+                        <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'var(--surface)', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
                           {TYPE_ICONS[sec.section_type] || <Activity size={20} color="var(--primary)" />}
                         </div>
-                        <div style={{ flex: 1, background: '#fff', padding: 24, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+                        <div style={{ flex: 1, background: 'var(--surface)', padding: 24, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
                             <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
                               <span style={{ textTransform: 'uppercase', letterSpacing: 1 }}>{sec.section_type}</span>
@@ -194,7 +194,7 @@ export default function SharedItineraryPage() {
         <div style={{ width: 340, display: 'flex', flexDirection: 'column', gap: 24 }}>
           {/* Weather Widget */}
           {trip.weather && (
-            <div style={{ background: '#fff', padding: 28, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ background: 'var(--surface)', padding: 28, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
               <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Sun size={18} color="#F59E0B" /> Expected Weather
               </h3>
@@ -210,7 +210,7 @@ export default function SharedItineraryPage() {
           )}
 
           {/* Quick Info Widget */}
-          <div style={{ background: '#fff', padding: 28, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ background: 'var(--surface)', padding: 28, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
             <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>Trip Highlights</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -231,7 +231,7 @@ export default function SharedItineraryPage() {
           
           {/* CTA Widget */}
           <div style={{ background: 'var(--surface-high)', padding: 32, borderRadius: 'var(--r-xl)', textAlign: 'center' }}>
-            <div style={{ width: 48, height: 48, background: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+            <div style={{ width: 48, height: 48, background: 'var(--surface)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
               <Globe size={24} color="var(--primary)" />
             </div>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 8 }}>Inspired by this trip?</h3>

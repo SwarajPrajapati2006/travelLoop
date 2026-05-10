@@ -174,7 +174,7 @@ export default function DashboardPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08, duration: 0.45 }}
                 whileHover={{ y: -6, boxShadow: 'var(--shadow-lg)' }}
-                style={{ background: '#fff', borderRadius: 'var(--r-3xl)', overflow: 'hidden', border: '1px solid var(--border)', cursor: 'pointer' }}
+                style={{ background: 'var(--surface)', borderRadius: 'var(--r-3xl)', overflow: 'hidden', border: '1px solid var(--border)', cursor: 'pointer' }}
                 onClick={() => navigate(`/itinerary/${exp.id}`)}
               >
                 <div style={{ position: 'relative', height: 190 }}>
