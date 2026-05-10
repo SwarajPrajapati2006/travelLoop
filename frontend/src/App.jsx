@@ -19,6 +19,10 @@ import NotesPage from './pages/NotesPage';
 import CommunityPage from './pages/CommunityPage';
 import BudgetPage from './pages/BudgetPage';
 import SharedItineraryPage from './pages/SharedItineraryPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import SupportPage from './pages/SupportPage';
+import ContactUsPage from './pages/ContactUsPage';
 
 const NO_LAYOUT_PATHS = ['/login', '/register', '/'];
 
@@ -28,7 +32,7 @@ function Shell({ children }) {
   return (
     <div style={{ display:'flex', flexDirection:'column', minHeight:'100vh' }}>
       {!hideLayout && <Navbar />}
-      <div style={{ flex: 1 }}>{children}</div>
+      <div style={{ flex: 1, paddingBottom: 60 }}>{children}</div>
       {!hideLayout && <Footer />}
     </div>
   );
@@ -55,6 +59,10 @@ export default function App() {
             <Route path="/trips/:id/budget" element={<ProtectedRoute><BudgetPage /></ProtectedRoute>} />
             <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
             <Route path="/share/:id" element={<SharedItineraryPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfServicePage />} />
+            <Route path="/support" element={<SupportPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Shell>

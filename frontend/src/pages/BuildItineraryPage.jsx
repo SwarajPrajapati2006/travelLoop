@@ -106,7 +106,7 @@ export default function BuildItineraryPage() {
     padding: '10px 14px', borderRadius: 'var(--r-md)',
     border: '1.5px solid var(--border)', outline: 'none',
     fontSize: 14, fontFamily: 'var(--font-sans)',
-    background: '#fff', color: 'var(--text-main)',
+    background: 'var(--surface)', color: 'var(--text-main)',
     width: '100%', transition: 'border-color 0.2s',
   };
 
@@ -149,7 +149,7 @@ export default function BuildItineraryPage() {
             <motion.div
               initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }}
               style={{
-                flex: 1, background: '#fff', borderRadius: 'var(--r-xl)',
+                flex: 1, background: 'var(--surface)', borderRadius: 'var(--r-xl)',
                 border: '1px solid var(--border)', padding: '28px 32px',
                 boxShadow: 'var(--shadow-sm)', marginBottom: 24,
               }}
@@ -227,7 +227,7 @@ export default function BuildItineraryPage() {
         ))}
 
         {isAdding ? (
-          <div style={{ marginLeft: 64, background: '#fff', borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', padding: '28px 32px', boxShadow: 'var(--shadow-md)' }}>
+          <div style={{ marginLeft: 64, background: 'var(--surface)', borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', padding: '28px 32px', boxShadow: 'var(--shadow-md)' }}>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>Add New Section</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', gap: 16 }}>
