@@ -142,9 +142,9 @@ The system utilizes 8 core tables with a Star-Schema relationship:
 
 | Member | Role | Key Contributions |
 |---|---|---|
-| **Rituraj** | **Backend Lead** | Engineered the SQL aggregation engine, JWT/Bcrypt security layer, massive 150-row seed dataset, and production Render infrastructure. |
-| **Rishab** | **Frontend Lead** | Architected the React UI, established the design system, implemented complex auth state, and managed Vercel deployments. |
-| **Swaraj** | **Full-Stack / Integration** | Developed the Itinerary Builder, Search Logic, and end-to-end Axios wiring across 30+ endpoints. |
+| **Rishab** | **Backend Lead** | Engineered the SQL aggregation engine, JWT/Bcrypt security layer, massive 150-row seed dataset, and production Render infrastructure. |
+| **Swaraj** | **Frontend Lead** | Architected the React UI, established the design system, implemented complex auth state, and managed Vercel deployments. |
+| **Rituraj** | **Full-Stack / Integration** | Developed the Itinerary Builder, Search Logic, and end-to-end Axios wiring across 30+ endpoints. |
 
 ---
 
