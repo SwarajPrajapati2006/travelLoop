@@ -227,7 +227,7 @@ export default function BuildItineraryPage() {
         ))}
 
         {isAdding ? (
-          <div style={{ marginLeft: 64, background: '#fff', borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', padding: '28px 32px', boxShadow: 'var(--shadow-md)' }}>
+          <div style={{ marginLeft: 64, background: 'var(--surface)', borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', padding: '28px 32px', boxShadow: 'var(--shadow-md)' }}>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>Add New Section</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', gap: 16 }}>

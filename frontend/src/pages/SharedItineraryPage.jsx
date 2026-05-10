@@ -130,7 +130,7 @@ export default function SharedItineraryPage() {
           </div>
           
           {groupedDays.length === 0 ? (
-            <div style={{ background: '#fff', padding: 48, borderRadius: 'var(--r-xl)', textAlign: 'center', border: '1px solid var(--border)' }}>
+            <div style={{ background: 'var(--surface)', padding: 48, borderRadius: 'var(--r-xl)', textAlign: 'center', border: '1px solid var(--border)' }}>
               <p style={{ color: 'var(--text-secondary)' }}>This trip has no activities planned yet.</p>
             </div>
           ) : (
@@ -166,7 +166,7 @@ export default function SharedItineraryPage() {
                     
                     {currentDay.sections.map((sec) => (
                       <div key={sec.id} style={{ display: 'flex', gap: 24, position: 'relative', zIndex: 1 }}>
-                        <div style={{ width: 50, height: 50, borderRadius: '50%', background: '#fff', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
+                        <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'var(--surface)', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
                           {TYPE_ICONS[sec.section_type] || <Activity size={20} color="var(--primary)" />}
                         </div>
                         <div style={{ flex: 1, background: 'var(--surface)', padding: 24, borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
