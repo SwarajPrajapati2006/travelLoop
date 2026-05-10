@@ -7,5 +7,7 @@ router.use(authMiddleware);
 
 router.get('/:tripId/expenses', expenseController.getExpenses);
 router.post('/:tripId/expenses', expenseController.addExpense);
+router.get('/:tripId/budget-summary', expenseController.getBudgetSummary);
+router.get('/:tripId/budget-breakdown', expenseController.getBudgetBreakdown);
 
 module.exports = router;
