@@ -20,7 +20,7 @@ const app = express();
 // Security Middleware
 app.use(helmet());
 app.use(cors({
-  origin: 'https://travel-loop-iota.vercel.app',
+  origin: 'https://travel-loop-eta.vercel.app/',
   credentials: true
 }));
 app.use(express.json());
