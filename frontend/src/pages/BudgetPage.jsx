@@ -35,6 +35,11 @@ const inputSt = {
   color: 'var(--text-main)', outline: 'none',
 };
 
+const toNumber = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
 /* ── Component ───────────────────────────────────────────────── */
 export default function BudgetPage() {
   const { id } = useParams();
@@ -77,15 +82,17 @@ export default function BudgetPage() {
 
   /* ── Derived numbers ───────────────────────────────────────── */
   const currency     = trip?.currency || '$';
-  const tripBudget = parseFloat(trip?.budget || 0);
-  const plannedFromSections = parseFloat(summary?.total_planned || 0);
+  const tripBudget = toNumber(trip?.budget);
+  const plannedFromSections = toNumber(summary?.total_planned);
   const totalBudget = plannedFromSections > 0 ? plannedFromSections : tripBudget;
-  const totalSpent = parseFloat(summary?.total_spent || expenses.reduce((s, e) => s + parseFloat(e.amount || 0), 0));
+  const totalSpent = toNumber(summary?.total_spent || expenses.reduce((s, e) => s + toNumber(e.amount), 0));
   const remaining    = totalBudget - totalSpent;
   const overBudget   = totalSpent > totalBudget && totalBudget > 0;
   const rawPct       = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
   const pctForBar    = Math.min(100, Math.max(0, rawPct));
   const pctLabel     = `${pctForBar.toFixed(1)}%`;
+  const formattedTotalSpent = `${currency}${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const formattedTotalBudget = totalBudget > 0 ? `${currency}${totalBudget.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Not set';
 
   // Trip duration in days
   const tripDays = (() => {
@@ -94,6 +101,10 @@ export default function BudgetPage() {
     return Math.max(1, Math.round(diff));
   })();
   const avgPerDay = Math.round(totalSpent / tripDays);
+  const isExpenseFormValid =
+    form.description.trim().length > 0 &&
+    toNumber(form.qty) > 0 &&
+    toNumber(form.unit_cost) > 0;
 
   /* ── Chart data from real breakdown ───────────────────────── */
   const pieData = breakdown
@@ -119,8 +130,9 @@ export default function BudgetPage() {
   /* ── Add expense ───────────────────────────────────────────── */
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!form.description.trim() || !form.unit_cost || !form.qty) {
-      toast.error('Please fill in all fields'); return;
+    if (!isExpenseFormValid) {
+      toast.error('Please enter a description, qty, and unit cost greater than 0');
+      return;
     }
     setSubmitting(true);
     try {
@@ -134,7 +146,7 @@ export default function BudgetPage() {
       toast.success('Expense added!');
       setForm({ category: 'food', description: '', qty: 1, unit: 'item', unit_cost: '' });
       setShowForm(false);
-      loadData();
+      await loadData();
     } catch (err) {
       toast.error(err?.response?.data?.message || 'Failed to add expense');
     } finally {
@@ -147,7 +159,7 @@ export default function BudgetPage() {
     try {
       await deleteExpense(expId);
       toast.success('Expense removed');
-      loadData();
+      await loadData();
     } catch {
       toast.error('Failed to delete expense');
     }
@@ -283,8 +295,8 @@ export default function BudgetPage() {
                 style={{ padding: '10px 20px', borderRadius: 'var(--r-lg)', border: '1.5px solid var(--border)', background: '#fff', color: 'var(--text-main)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
                 Cancel
               </button>
-              <button type="submit" disabled={submitting}
-                style={{ padding: '10px 24px', borderRadius: 'var(--r-lg)', border: 'none', background: 'var(--primary)', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}>
+              <button type="submit" disabled={submitting || !isExpenseFormValid}
+                style={{ padding: '10px 24px', borderRadius: 'var(--r-lg)', border: 'none', background: 'var(--primary)', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', opacity: (submitting || !isExpenseFormValid) ? 0.7 : 1 }}>
                 {submitting ? 'Adding…' : 'Add Expense'}
               </button>
             </div>
@@ -295,8 +307,8 @@ export default function BudgetPage() {
       {/* ── Summary Cards ─────────────────────────────────────── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginBottom: 40 }}>
         {[
-          { label: 'Total Spent',   value: `${currency}${totalSpent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, icon: DollarSign,  color: 'var(--primary)' },
-          { label: 'Total Budget',  value: totalBudget > 0 ? `${currency}${totalBudget.toLocaleString()}` : 'Not set', icon: TrendingUp,  color: 'var(--secondary)' },
+          { label: 'Total Spent',   value: formattedTotalSpent, icon: DollarSign,  color: 'var(--primary)' },
+          { label: 'Total Budget',  value: formattedTotalBudget, icon: TrendingUp,  color: 'var(--secondary)' },
           { label: 'Avg. Per Day',  value: `${currency}${avgPerDay.toLocaleString()}`,  icon: CheckCircle, color: '#8B5CF6' },
         ].map(card => (
           <div key={card.label} style={{ background: '#fff', padding: 28, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
@@ -317,6 +329,9 @@ export default function BudgetPage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
             <span style={{ fontWeight: 600, fontSize: 15, color: 'var(--text-main)' }}>Overall Budget Used</span>
             <span style={{ fontSize: 15, fontWeight: 700, color: overBudget ? '#DC2626' : 'var(--secondary)' }}>{pctLabel}</span>
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 10 }}>
+            {formattedTotalSpent} spent of {formattedTotalBudget}
           </div>
           <div style={{ height: 14, background: 'var(--surface-high)', borderRadius: 'var(--r-full)', overflow: 'hidden', marginBottom: 10 }}>
             <div style={{
