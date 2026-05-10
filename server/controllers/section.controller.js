@@ -4,9 +4,18 @@ const { checkTripOwnership, checkEntityOwnership } = require('../utils/checkOwne
 exports.getSections = async (req, res, next) => {
   const { tripId } = req.params;
   try {
-    if (!(await checkTripOwnership(tripId, req.user.id))) {
-      return res.status(403).json({ message: 'Access denied' });
+    const tripResult = await db.query('SELECT is_public, user_id FROM trips WHERE id = $1', [tripId]);
+    if (tripResult.rows.length === 0) {
+      return res.status(404).json({ message: 'Trip not found' });
     }
+    const trip = tripResult.rows[0];
+
+    if (!trip.is_public) {
+      if (!req.user || trip.user_id !== req.user.id) {
+        return res.status(403).json({ message: 'Access denied' });
+      }
+    }
+
     const result = await db.query(
       'SELECT * FROM trip_sections WHERE trip_id = $1 ORDER BY order_index ASC',
       [tripId]
